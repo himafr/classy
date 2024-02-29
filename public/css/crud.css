@@ -1,0 +1,59 @@
+body
+{
+    margin: 0px;
+    padding: 0px;
+}
+nav{
+    display: flex;
+    justify-content: space-around;
+
+}
+.navAdd{
+    display: flex;
+    background-color: blue;
+    width: 40vw;
+    justify-content: center;
+    height: 60px;
+    align-items: center;
+    font-size: 30px;
+
+}
+.navEdit{
+    display: flex;
+    background-color: blue;
+    width: 40vw;
+    justify-content: center;
+    height: 60px;
+    align-items: center;
+    font-size: 30px;
+}
+
+.add{
+    height:  calc(100vh - 60px);
+}
+label,input,textarea{
+    display:block;
+    margin-top:10px
+    
+}
+input,textarea{
+    border-radius: 10px;
+    
+}
+
+.add{
+    display: flex;
+    justify-content: center;
+}
+.addForm{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.addBtn{
+    width: 60px;
+    height: 30px;
+    margin-top: 10px;
+    border-radius: 10px;
+}

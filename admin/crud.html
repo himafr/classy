@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>sgin up</title>
+    <meta name="author" content="h.sallem" />
+    <meta
+      name="description"
+      content="محل تجاري لبيع الملابس الجاهزه بمختلف محافظات مصر
+    مع امكانية الحجز و الشراء اونلاين"
+    />
+    <meta name="robots" content="index , follow" />
+    <meta property="og:title" content="متجر ملابس" />
+    <meta
+      property="og:description"
+      content="محل تجاري لبيع الملابس الجاهزه بمختلف محافظات مصر
+    مع امكانية الحجز و الشراء اونلاين"
+    />
+    <meta property="og:url" content="" />
+    <meta property="og:type" content="website" />
+    <link rel="stylesheet" href="sgin-up.css" />
+    <link rel="stylesheet" href="css/sgin-up.css" />
+    <!-- <link rel="stylesheet" href="css/bootstrap.css" /> -->
+  </head>
+  <body>
+    <div class="cotainer">
+      <nav>
+        <div id="navAdd">add</div>
+        <div id="navEdit">edit</div>
+      </nav>
+      <section class="section" id="partAdd">
+        <h1>اضف منتج جديد</h1>
+        <form action="">
+          <label>
+            name <br /><input
+              type="text"
+              required
+              placeholder="first name"
+              class="f-name"
+            /> </label
+          ><br />
+          <label
+            >description <br />
+            <div class="textCenter">
+              <textarea type="text" id="desPro" class="l-name"></textarea>
+            </div>
+          </label>
+          <br />
+
+          <label
+            >price <br /><input
+              type="number"
+              placeholder="سعر المنتج"
+              class="age"
+            /> </label
+          ><br />
+          <label
+            >discount <br /><input
+              type="tel"
+              placeholder="السعر بعد الخصم"
+              class="phone"
+            /> </label
+          ><br />
+          <div class="submit">
+            <button class="submit-button">submit</button>
+          </div>
+        </form>
+      </section>
+      <div>
+        <section id="edit">ggr</section>
+      </div>
+      <footer>&copy;h,sallem</footer>
+    </div>
+    <script>
+      document.getElementById("partAdd").style.display = "none";
+      document.getElementById("edit").style.display = "none";
+      document.getElementById("navAdd").addEventListener("click", () => {
+        document.getElementById("partAdd").style.display = "block";
+        document.getElementById("edit").style.display = "none";
+      });
+      document.getElementById("navEdit").addEventListener("click", () => {
+        document.getElementById("partAdd").style.display = "none";
+        document.getElementById("edit").style.display = "block";
+      });
+    </script>
+  </body>
+</html>
