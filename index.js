@@ -7,7 +7,7 @@ app.set("view engine", "ejs");
 
 
 var hideIcon ="block"; 
-var cards =[];
+
 var letMe =[{
     name:"hima"
     ,password:"h.sallem"
@@ -33,12 +33,11 @@ app.get("/about",(req,res)=>{
 app.get("/about.html",(req,res)=>{
     res.redirect("/about")
 })
-var message =0
-var userName =[1,2,3]
-var passName =[1,2,3]  
+  
 
 app.get("/products",(req,res)=>{
-    res.render("products",{hideIcon:hideIcon,checkUser:userName,checkPass:passName,message:message})
+    console.log(users)
+    res.render("products",{hideIcon:hideIcon})
 })
 app.get("/views/products.ejs",(req,res)=>{
     res.redirect("/products")
@@ -47,7 +46,7 @@ app.get("/views/products.ejs",(req,res)=>{
 
 
 app.get("/offers",(req,res)=>{
-    res.render("offers",{hideIcon:hideIcon,checkUser:userName,checkPass:passName,message:message})
+    res.render("offers",{hideIcon:hideIcon})
  })
 app.get("/views/offers.ejs",(req,res)=>{
     res.redirect("/offers")
@@ -66,65 +65,39 @@ for(var element of users){
         }
     else if(user ==element.email&&pass==element.password){
    hideIcon ="none"
-        res.render("products", {hideIcon:hideIcon,checkUser:userName,checkPass:passName,message:message})
-    }    else{
-        message=0
-        userName =user
-        passName =pass  
-        res.render("products",{hideIcon:hideIcon,checkUser:userName,checkPass:passName,message:message})   
-    }
+      res.redirect("/products")  
+}  else{
+    res.send("<h1>please check your email or oassword !")
+  }
 }   
-})   
- 
-app.post("/login",(req,res)=>{
-const user = req.body.user;
-const pass = req.body.password;
+}) 
 
-for(var element of users){
-    if (user ==letMe[0].name&&pass==letMe[0].password){
-        res.sendFile(__dirname+"/admin/crud.html")
+app.post("/signup",(req,res)=>{
+    try{
+        const newUser = req.body.email;
+        const newPass = req.body.password;
+        for(var element of users){
+            if (newUser==letMe[0].name&&newPass==letMe[0].password){
+                res.send("pls check your email or password")
+            }
+            else if(newUser ==element.email&&newPass==element.password){       
+                res.send("pls check your email or password")
+            }    else{
+                users.push({
+                    email:newUser,
+                password:newPass
+                }) 
+                hideIcon ="none"
+                res.redirect("/products")
+                console.log(users)
         }
-    else if(user ==element.email&&pass==element.password){
-   hideIcon ="none"
-        res.render("offers", {hideIcon:hideIcon,checkUser:userName,checkPass:passName,message:message})
-    }    else{
-        message=0
-        userName =user
-        passName =pass  
-        res.render("offers",{hideIcon:hideIcon,checkUser:userName,checkPass:passName,message:message})   
     }
-}   
-})   
-
-
-// app.post("/sginup",(req,res)=>{
-//     try{
-//         const newUser = req.body.email;
-//         const newPass = req.body.password;
-//         for(var element of users){
-//             if (newUser==letMe[0].name&&newPass==letMe[0].password){
-//                 res.send("pls check your email or password")
-//             }
-//             else if(newUser ==element.email&&newPass==element.password){       
-//                 res.send("pls check your email or password")
-//             }    else{
-//                 users.push({
-//                     email:newUser,
-//                     password:newPass
-//                 }) 
-//                 res.render("products", {hideIcon:hideIcon})
-//                 console.log(users)
-            
-//         }
-//     }
+}catch{
+    res.send("something went wrong")
+}
     
-// }catch{
-//     res.send("something went wrong")
-// }
-    
-// })
+})
 
-console.log(users)
 app.listen(process.env.PORT||3000,()=>{
     console.log("sarted port 3000")
         

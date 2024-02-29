@@ -98,7 +98,7 @@
           </div>
           <div class="form-content">
             <h2>LOGIN</h2>
-            <form action="/login" method="post">
+            <form action="/logi" method="post">
               <div class="input-field">
                 <input type="text" name="user" required />
                 <label>Email</label>
@@ -126,18 +126,13 @@
           </div>
           <div class="form-content">
             <h2>SIGNUP</h2>
-            <form action="#" method="get">
+            <form action="/signup" method="post">
               <div class="input-field">
-                <input type="text" name="email" id="signUpName" required />
+                <input type="text" name="email" required />
                 <label>Enter your email</label>
               </div>
               <div class="input-field">
-                <input
-                  type="password"
-                  name="password"
-                  id="signUpPass"
-                  required
-                />
+                <input type="password" name="password" required />
                 <label>Create password</label>
               </div>
               <!-- <div class="policy-text">
@@ -147,7 +142,7 @@
                   <a href="#" class="option">Terms & Conditions</a>
                 </label>
               </div> -->
-              <button id="signUpBtn">Sign Up</button>
+              <button type="submit">Sign Up</button>
             </form>
             <div class="bottom-link">
               Already have an account?
@@ -217,15 +212,6 @@
     </div>
 
     <script>
-      let sideUser = [{ name: "ccc", pass: "test" }];
-      let backUser = JSON.parse(localStorage.getItem("savedUser"));
-      sideUser = backUser ?? [];
-      var userpass = {
-        checkUser: "<%=checkUser%>",
-        checkPass: "<%=checkPass%>",
-      };
-      console.log(userpass);
-
       var usericon = "<%= hideIcon %>";
       document.getElementById("hidee").style.display = usericon;
       if (usericon == "block") {
@@ -234,18 +220,6 @@
         document.getElementById("userFace").style.display = "block";
       }
       console.log(" <%= hideIcon %>");
-
-      document.getElementById("signUpBtn").addEventListener("click", () => {
-        const name = document.getElementById("signUpName").value;
-        const pass = document.getElementById("signUpPass").value;
-        sideUser.push({
-          name: name,
-          pass: pass,
-        });
-        saveMe();
-        alert("youe account has been created ");
-      });
-
       for (let x = 0; x < 15; x++) {
         document.getElementById("add-card").innerHTML += `
     <div class="card">
@@ -269,31 +243,31 @@
     </div> `;
       }
 
-      for (var element of sideUser) {
-        if (
-          userpass.checkUser == element.name &&
-          userpass.checkPass == element.pass
-        ) {
-          document.getElementById("hidee").style.display = "none";
-          document.getElementById("userFace").style.display = "block";
-        } else {
-          let mess = "<%= message %>";
-          if (mess == 1) {
-            alert("check your email or password");
-          }
-        }
-      }
+      // for (var element of sideUser) {
+      //   if (
+      //     userpass.checkUser == element.name &&
+      //     userpass.checkPass == element.pass
+      //   ) {
+      //     document.getElementById("hidee").style.display = "none";
+      //     document.getElementById("userFace").style.display = "block";
+      //   } else {
+      //     let mess = "";
+      //     if (mess == 1) {
+      //       alert("check your email or password");
+      //     }
+      //   }
+      // }
 
-      var letMe = [
-        {
-          name: "hima",
-          password: "h.sallem",
-        },
-      ];
-      function saveMe() {
-        let saver = JSON.stringify(sideUser);
-        localStorage.setItem("savedUser", saver);
-      }
+      // var letMe = [
+      //   {
+      //     name: "hima",
+      //     password: "h.sallem",
+      //   },
+      // ];
+      // function saveMe() {
+      //   let saver = JSON.stringify(sideUser);
+      //   localStorage.setItem("savedUser", saver);
+      // }
     </script>
     <script src="/js/nav-script.js"></script>
   </body>
