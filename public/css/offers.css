@@ -42,7 +42,11 @@ background: radial-gradient(circle, rgba(157,177,204,1) 0%, rgba(255,202,212,1) 
   margin-top: 3px;
 }  
 #userFace{
-  clip-path: circle(30% at 50% 50%);
+  background: radial-gradient(circle, rgba(148,187,233,1) 0%, rgba(140,132,236,1) 60%);
+  width: 25px;
+  height: 25px;
+  text-align: center;
+  border-radius: 50%;
 }  
  
 /* nav //*/
@@ -99,7 +103,7 @@ gap: 10px;
 }
 /* aside */
 aside>div{
-  height: 87vh;
+  height: 83vh;
     /* overflow-x: auto; */
     overflow-y: auto;
 }

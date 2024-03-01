@@ -64,12 +64,8 @@
               <li id="hidee">
                 <a class="login-btn">LOG IN</a>
               </li>
-              <li id="userFace">
-                <img
-                  src="/photo/spooky-tree-against-big-moon.jpg"
-                  height="50px"
-                  alt=""
-                />
+              <li style="padding-right: 2px">
+                <a id="userFace" href=""></a>
               </li>
             </ul>
             <span class="hamburger-btn material-symbols-rounded">menu</span>
@@ -100,7 +96,7 @@
             <h2>LOGIN</h2>
             <form action="/logi" method="post">
               <div class="input-field">
-                <input type="text" name="user" required />
+                <input type="text" name="user" id="userMail" required />
                 <label>Email</label>
               </div>
               <div class="input-field">
@@ -108,7 +104,7 @@
                 <label>Password</label>
               </div>
               <a href="#" class="forgot-pass-link">Forgot password?</a>
-              <button type="submit">Log In</button>
+              <button type="submit" id="logDone">Log In</button>
             </form>
             <div class="bottom-link">
               Don't have an account?
@@ -212,14 +208,36 @@
     </div>
 
     <script>
-      var usericon = "<%= hideIcon %>";
-      document.getElementById("hidee").style.display = usericon;
-      if (usericon == "block") {
+      var person = {
+        userName: "",
+        id: "<%= id%>",
+      };
+      p(person);
+
+      p(localStorage.getItem("userName"));
+
+      document.getElementById("logDone").addEventListener("click", () => {
+        let z = document.getElementById("userMail").value;
+        localStorage.setItem("userName", z);
+      });
+      if (person.id == 0) {
+        document.getElementById("hidee").style.display = "block";
         document.getElementById("userFace").style.display = "none";
       } else {
-        document.getElementById("userFace").style.display = "block";
+        localStorage.setItem("userId", person.id);
       }
-      console.log(" <%= hideIcon %>");
+      //  if (person.id != 0) {
+      person.id = localStorage.getItem("userId");
+      //   }
+      if (person.id != 0 && person.id != null) {
+        document.getElementById("hidee").style.display = "none";
+        document.getElementById("userFace").style.display = "block";
+        let firstLetter = localStorage.getItem("userName");
+        let me = firstLetter.charAt(0);
+        document.getElementById("userFace").innerHTML = me.toUpperCase();
+        console.log(firstLetter.charAt(0));
+      }
+
       for (let x = 0; x < 15; x++) {
         document.getElementById("add-card").innerHTML += `
     <div class="card">
@@ -268,6 +286,9 @@
       //   let saver = JSON.stringify(sideUser);
       //   localStorage.setItem("savedUser", saver);
       // }
+      function p(a) {
+        console.log(a);
+      }
     </script>
     <script src="/js/nav-script.js"></script>
   </body>
