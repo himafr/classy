@@ -212,34 +212,29 @@
     </div>
 
     <script>
-      var person = {
-        userName: "",
-        id: "<%= id%>",
-      };
-      p(person);
+      id = "<%= id%>";
+      var num = "";
+      var userid = 0;
 
-      p(localStorage.getItem("userName"));
-      // person.id = localStorage.getItem("userId");
-
-      document.getElementById("logDone").addEventListener("click", () => {
-        let z = document.getElementById("userMail").value;
-        localStorage.setItem("userName", z);
-      });
-      if (person.id == 0) {
+      if (id == 0) {
         document.getElementById("hidee").style.display = "block";
         document.getElementById("userFace").style.display = "none";
       } else {
-        localStorage.setItem("userId", person.id);
+        localStorage.setItem("userName", "<%= auser %>");
+        localStorage.setItem("userId", "<%= id %>");
+        console.log("<%= auser %>");
       }
-      //  if (person.id != 0) {
-      person.id = localStorage.getItem("userId");
-      //   }
-      if (person.id != 0 && person.id != null) {
+      num = localStorage.getItem("userName");
+      id = localStorage.getItem("userId");
+
+      if (id != 0 && id != null) {
         document.getElementById("hidee").style.display = "none";
         document.getElementById("userFace").style.display = "block";
-        let firstLetter = localStorage.getItem("userName");
-        document.getElementById("userFace").innerHTML = firstLetter.charAt(0);
+        let me = num.charAt(0);
+        document.getElementById("userFace").innerHTML = me.toUpperCase();
+        console.log(me.toUpperCase());
       }
+
       for (let x = 0; x < 15; x++) {
         document.getElementById("add-card").innerHTML += `
       <div class="card">

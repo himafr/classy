@@ -40,7 +40,7 @@ app.get("/about.html",(req,res)=>{
 
 app.get("/products",(req,res)=>{
     
-    res.render("products",{id:0})
+    res.render("products",{"id":0,"auser":""})
 })
 
 app.get("/views/products.ejs",(req,res)=>{
@@ -50,7 +50,7 @@ app.get("/views/products.ejs",(req,res)=>{
 
 
 app.get("/offers",(req,res)=>{
-    res.render("offers",{id:0})
+    res.render("offers",{"id":0,"auser":""})
  })
 app.get("/views/offers.ejs",(req,res)=>{
     res.redirect("/offers")
@@ -62,24 +62,24 @@ app.get("/views/offers.ejs",(req,res)=>{
 app.post("/logi",(req,res)=>{
 const user = req.body.user;
 const pass = req.body.password;
-let id =0;
+let iid =0;
 for(var element of users){
     if(user ==element.email&&pass==element.password){
-id =element.id
+iid =element.id
 }   
-}  if(id==1){
+}  if(iid==1){
     res.sendFile(__dirname+"/admin/crud.html")
-}else if(id==0){   
+}else if(iid==0){   
     res.send("<h1>please check your email or oassword !")
 }
 else{
-    console.log(id)
-    res.render("products",{id:id})  
+    console.log(iid)
+    res.render("products",{"id":iid,"auser":user})  
   }
 }) 
 console.log(users.length)
 app.post("/signup",(req,res)=>{
-    // try{
+    try{
         const newUser = req.body.email;
         const newPass = req.body.password;
         let id =0;
@@ -97,14 +97,14 @@ app.post("/signup",(req,res)=>{
                 "email":newUser,
             "password":newPass
             }) 
-            console.log("sss")
+            console.log(users)
             res.redirect("/products")
 
         }
-// }
-// catch{
-//     res.send("something went wrong")
-// }
+}
+catch{
+    res.send("something went wrong")
+}
     
 })
 
