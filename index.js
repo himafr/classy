@@ -65,7 +65,7 @@ const pass = req.body.password;
 let iid =0;
 for(var element of users){
     if(user ==element.email&&pass==element.password){
-iid =element.id
+id =element.id
 }   
 }  if(iid==1){
     res.sendFile(__dirname+"/admin/crud.html")
@@ -97,7 +97,7 @@ app.post("/signup",(req,res)=>{
                 "email":newUser,
             "password":newPass
             }) 
-            console.log(users)
+            console.log("sss")
             res.redirect("/products")
 
         }
