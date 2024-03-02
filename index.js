@@ -74,7 +74,7 @@ iid =element.id
 }
 else{
     console.log(iid)
-    res.render("products",{"id":iid,"auser":user})  
+    res.render("offers",{"id":iid,"auser":user})  
   }
 }) 
 console.log(users.length)

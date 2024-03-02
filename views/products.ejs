@@ -204,6 +204,9 @@
         </aside>
 
         <article id="add-card" class="add-card article"></article>
+        <div id="asme" style="position: fixed; top: 70px; left: 150px">
+          <h1>please join us to see what offers you missin</h1>
+        </div>
       </section>
 
       <footer>
@@ -216,9 +219,10 @@
       var num = "";
       var userid = 0;
 
-      if (id == 0) {
+      if (id == 0 || id == null) {
         document.getElementById("hidee").style.display = "block";
         document.getElementById("userFace").style.display = "none";
+        document.getElementById("add-card").style.display = "none";
       } else {
         localStorage.setItem("userName", "<%= auser %>");
         localStorage.setItem("userId", "<%= id %>");
@@ -228,8 +232,10 @@
       id = localStorage.getItem("userId");
 
       if (id != 0 && id != null) {
+        document.getElementById("asme").style.display = "none";
         document.getElementById("hidee").style.display = "none";
         document.getElementById("userFace").style.display = "block";
+        document.getElementById("add-card").style.display = "flex";
         let me = num.charAt(0);
         document.getElementById("userFace").innerHTML = me.toUpperCase();
         console.log(me.toUpperCase());
