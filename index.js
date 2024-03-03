@@ -16,6 +16,11 @@ var users=[{
 },
 {
     "id":1,
+    "email":"amirsallem",
+    "password":"123456789"
+},
+{
+    "id":2,
     "email":"hima",
     "password":"h.sallem"
 }]
