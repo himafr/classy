@@ -295,4 +295,8 @@ footer{
  .add-card{
    gap: 10px 3px;
    }
+   .card{
+    padding: 2px;
+    width: 140px;
+   }
 }
