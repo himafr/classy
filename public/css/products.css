@@ -293,7 +293,7 @@ footer{
 }
 @media (max-width:470px){
  .add-card{
-   gap: 10px 5px;
+   gap: 15px 5px;
    }
    .card{
     padding: 3px;
