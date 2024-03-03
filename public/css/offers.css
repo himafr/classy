@@ -291,3 +291,9 @@ background-color: #ffcaa6;
   }
     
 }
+@media (max-width:470px){
+  .add-card{
+    gap: 10px 3px;
+    }
+ }
+ 

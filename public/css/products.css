@@ -291,8 +291,8 @@ footer{
   }
   
 }
-@media (max-width:398px){
+@media (max-width:470px){
  .add-card{
-   gap: 10px 5px;
+   gap: 10px 3px;
    }
 }
