@@ -172,10 +172,11 @@ aside>div{
 /* aside// */
 /* article */
 .add-card{
+  margin-top: 3px;
   display: flex;
   justify-content: center;  
     height: auto;
-  gap: 50px 10px;
+  gap: 30px 10px;
   flex-wrap: wrap;
   overflow-x: auto;
     overflow-y: auto;
@@ -293,7 +294,7 @@ footer{
 }
 @media (max-width:470px){
  .add-card{
-   gap: 15px 5px;
+   gap: 10px 5px;
    }
    .card{
     padding: 3px;
