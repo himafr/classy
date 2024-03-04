@@ -103,14 +103,13 @@ gap: 10px;
 /* aside */
 aside>div{
   height: 83vh;
-  max-height:500px;
+  max-height:300px;
     /* overflow-x: auto; */
     overflow-y: auto;
 }
 
 .aside {
   height: auto;
-  max-height:300px
     background: #11101d;
     padding: 6px 14px;
     transition: all 0.5s ease;
