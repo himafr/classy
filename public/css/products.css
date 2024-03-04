@@ -110,6 +110,7 @@ aside>div{
 
 .aside {
   height: auto;
+  max-height:300px
     background: #11101d;
     padding: 6px 14px;
     transition: all 0.5s ease;
