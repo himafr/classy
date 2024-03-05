@@ -301,4 +301,6 @@ background-color: #ffcaa6;
      width: 170px;
     }
  }
-  
+  .aside{
+  max-height:400px;
+}
