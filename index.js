@@ -1,118 +1,124 @@
+require("dotenv").config()
 const express =require("express")
 const app = express()
 const bodyParser =require("body-parser")
+const ejs =require("ejs")
+const mongoose =require("mongoose")
+const session =require("express-session")
+const passport =require("passport")
+const passportLocalMongoose=require("passport-local-mongoose")
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(express.static("public"))
-app.set("view engine", "ejs");   
+app.set("view engine", "ejs");  
+app.use(session({
+    secret:process.env.SEPART,
+    resave: false,
+    saveUninitialized: false
+  }))
+  app.use(passport.initialize())
+  app.use(passport.session())
 
+  const connectDB = async () => {
+    try {
+      const conn = await mongoose.connect(process.env.MONGO);
+    } catch (error) {
+      console.log(error);
+      process.exit();
+    }
+  }
+  const userchema= new mongoose.Schema({
+    name:String,
+    password:String,
+  })
+userchema.plugin(passportLocalMongoose);
 
+const User = new mongoose.model("User",userchema)
+  passport.use(User.createStrategy());
 
-
-
-var users=[{
-    "id":0,
-    "email":"test",
-    "password":"test"
-},
-{
-    "id":1,
-    "email":"amirsallem",
-    "password":"123456789"
-},
-{
-    "id":2,
-    "email":"hima",
-    "password":"h.sallem"
-}]
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 
 app.get("/",(req,res)=>{
     res.sendFile(__dirname+"/index.html" )
-})
-app.get("/index.html",(req,res)=>{
-    res.redirect("/")
+
 })
 
 
 
 app.get("/about",(req,res)=>{
     res.sendFile(__dirname+"/about.html" )
-})
-app.get("/about.html",(req,res)=>{
-    res.redirect("/about")
+
 })
   
 
 app.get("/products",(req,res)=>{
     
-    res.render("products",{"id":0,"auser":""})
+res.render("products")
 })
 
-app.get("/views/products.ejs",(req,res)=>{
-    res.redirect("/products")
+app.get("/login",(req,res)=>{
+    res.sendFile(__dirname+"/login.html")
 })
 
 
 
 app.get("/offers",(req,res)=>{
-    res.render("offers",{"id":0,"auser":""})
- })
-app.get("/views/offers.ejs",(req,res)=>{
-    res.redirect("/offers")
+    if(req.isAuthenticated()){
+        res.render("offers")
+    }else{
+        res.redirect("login")
+    }
+
 })
 
-
-
- 
-app.post("/logi",(req,res)=>{
-const user = req.body.user;
-const pass = req.body.password;
-let iid =0;
-for(var element of users){
-    if(user ==element.email&&pass==element.password){
-iid =element.id
-}   
-}  if(iid==1){
-    res.sendFile(__dirname+"/admin/crud.html")
-}else if(iid==0){   
-    res.send("<h1>please check your email or oassword !")
-}
-else{
-    console.log(iid)
-    res.render("offers",{"id":iid,"auser":user})  
-  }
-}) 
-console.log(users.length)
 app.post("/signup",(req,res)=>{
-    try{
-        const newUser = req.body.email;
-        const newPass = req.body.password;
-        let id =0;
-        for(var element of users){
-            if(newUser ==element.email){       
-            id++
-            } 
+const newuser = new User({
+    name: req.body.firstName,
+    // lastName: req.body.lastName,
+    // address: req.body.address,
+    username: req.body.username
+  })
+    User.register(newuser,req.body.password,(err,user)=>{
+        if(err){
+          console.log(err)
+          res.send("user name is already exist")
+        }else{
+          passport.authenticate("local")(req,res,()=>{
+            res.redirect("/offers")
+          } )
         }
-        if (id==1){
-            res.send("pls check your email or password")
-        }
-        else if (id==0){
-            users.push({
-                "id":users.length,
-                "email":newUser,
-            "password":newPass
-            }) 
-            console.log(users)
-            res.redirect("/products")
+      }) 
 
-        }
-}
-catch{
-    res.send("something went wrong")
-}
-    
 })
+app.post("/login",(req,res)=>{
+    passport.authenticate('local',
+    (err, user, info) => {
+      if (err) {
+        console.log(err)
+        return next(err);  // default express error handler - unauthorized 
+      }
+  
+      if (!user) {
+        res.send("check your email or password")
+        console.log(err)
+        // return res.redirect('/signup'); // you can redirect user to signup page if needed
+      }else{
+      req.logIn(user, function(err) {
+        if (err) {
+          return next(err);
+        }else{
+        return res.redirect('/offers');
+      }  });
+    }
+    })(req, res);
 
-app.listen(process.env.PORT||3000,()=>{
-    console.log("sarted port 3000") 
+
+}) 
+
+
+connectDB().then(() => {
+    app.listen( process.env.PORT||3000, () => {
+        console.log("listening for requests");
+    })
 }) 
