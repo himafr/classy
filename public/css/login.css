@@ -13,13 +13,14 @@ body {
   place-items: center;
   background: #282a36;
 }
+
 ::selection {
   background: #1a75ff;
   color: #fff;
 }
 .wrapper {
   overflow: hidden;
-  max-width: 390px;
+  max-width: 600px;
   background: #fff;
   padding: 30px;
   border-radius: 15px;
@@ -27,7 +28,7 @@ body {
 }
 .wrapper .title-text {
   display: flex;
-  width: 200%;
+  width: 220%;
 }
 .wrapper .title {
   width: 50%;
@@ -35,6 +36,7 @@ body {
   font-weight: 600;
   text-align: center;
   transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  margin-left: 15%;
 }
 .wrapper .slide-controls {
   position: relative;
@@ -82,6 +84,8 @@ input[type="radio"] {
   color: #fff;
   cursor: default;
   user-select: none;
+  margin-left: 25%;
+  
 }
 #signup:checked ~ label.login {
   color: #000;
@@ -107,7 +111,7 @@ input[type="radio"] {
 }
 .form-inner form .field {
   height: 50px;
-  width: 100%;
+  /* width: 100%; */
   margin-top: 20px;
 }
 .form-inner form .field input {
@@ -186,4 +190,14 @@ form .btn input[type="submit"] {
   font-size: 20px;
   font-weight: 500;
   cursor: pointer;
+}
+.signup{
+  display: flex;
+  flex-wrap: wrap;
+}
+.edit{
+  width:50%
+}
+.editt{
+  width:33.3333%
 }

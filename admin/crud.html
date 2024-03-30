@@ -31,19 +31,25 @@
       </nav>
       <section class="section" id="partAdd">
         <h1>اضف منتج جديد</h1>
-        <form action="">
+        <form action="/add" method="post">
           <label>
             name <br /><input
               type="text"
               required
               placeholder="first name"
               class="f-name"
+              name="name"
             /> </label
           ><br />
           <label
             >description <br />
             <div class="textCenter">
-              <textarea type="text" id="desPro" class="l-name"></textarea>
+              <textarea
+                type="text"
+                id="desPro"
+                class="l-name"
+                name="description"
+              ></textarea>
             </div>
           </label>
           <br />
@@ -53,15 +59,23 @@
               type="number"
               placeholder="سعر المنتج"
               class="age"
+              name="price"
             /> </label
           ><br />
           <label
             >discount <br /><input
-              type="tel"
+              type="number"
               placeholder="السعر بعد الخصم"
               class="phone"
-            /> </label
-          ><br />
+              name="discount"
+            />
+          </label>
+          <label>men <input type="checkbox" name="men" /></label>
+          <label>women <input type="checkbox" name="women" /></label>
+          <label>top <input type="checkbox" name="top" /></label>
+          <label>pants <input type="checkbox" name="pants" /></label>
+          <label>shoese <input type="checkbox" name="shoese" /></label>
+          <br />
           <div class="submit">
             <button class="submit-button">submit</button>
           </div>

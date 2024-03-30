@@ -12,6 +12,9 @@ app.use(express.static("public"))
 app.set("view engine", "ejs");  
 app.use(session({
     secret:process.env.SEPART,
+    maxAge: new Date(Date.now() + 3600000),
+httpOnly: true,
+cookie: { path: '/', httpOnly: true, maxAge:36000000},
     resave: false,
     saveUninitialized: false
   }))
@@ -28,6 +31,11 @@ app.use(session({
   }
   const userchema= new mongoose.Schema({
     name:String,
+    address:String,
+    year:Number,
+    month:Number,
+    day:Number,
+    type:String,
     password:String,
   })
 userchema.plugin(passportLocalMongoose);
@@ -37,6 +45,14 @@ const User = new mongoose.model("User",userchema)
 
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+const Product =new mongoose.model("Product",{
+  name:String,
+  description:String,
+  price:Number,
+  discount:Number,
+  type:Object
+})
 
 
 app.get("/",(req,res)=>{
@@ -53,30 +69,60 @@ app.get("/about",(req,res)=>{
   
 
 app.get("/products",(req,res)=>{
-    
-res.render("products")
+  if(req.isAuthenticated()){
+    Product.find({}).then((found)=>{
+      res.render("products",{cards:found})
+    }
+    ) 
+}else{
+    res.redirect("login")
+}    
 })
-
-app.get("/login",(req,res)=>{
-    res.sendFile(__dirname+"/login.html")
-})
-
-
 
 app.get("/offers",(req,res)=>{
     if(req.isAuthenticated()){
-        res.render("offers")
+      Product.find({}).then((found)=>{
+        res.render("offers",{cards:found})
+      }
+      )   
     }else{
         res.redirect("login")
     }
 
 })
+app.get("/login",(req,res)=>{
+    res.sendFile(__dirname+"/login.html")
+  })
+  app.get("/admin",(req,res)=>{
+    if(req.isAuthenticated){
+      if(req.user.type=="admin"){
+        res.sendFile(__dirname+"/admin/crud.html")
+      }else{
+        res.redirect("/")
+      }
+    }else{  
+      res.sendFile(__dirname+"/login.html")
+  }
+
+})
+app.get("/logout",(req,res)=>{
+  req.logout(req.user, err => {
+    if(err) return next(err);
+    res.redirect("/");
+  });
+})
+
+
+
 
 app.post("/signup",(req,res)=>{
-const newuser = new User({
-    name: req.body.firstName,
-    // lastName: req.body.lastName,
-    // address: req.body.address,
+  const newuser = new User({
+    name:req.body.firstName,
+    year: req.body.year,
+    month: req.body.month,
+    day: req.body.day,
+    address: req.body.address,
+    type:"user",
     username: req.body.username
   })
     User.register(newuser,req.body.password,(err,user)=>{
@@ -112,9 +158,31 @@ app.post("/login",(req,res)=>{
       }  });
     }
     })(req, res);
-
-
 }) 
+app.post("/add",(req,res)=>{
+  const men =req.body.men ?? "off"
+  const women =req.body.women??"off"
+  const top =req.body.top??"off"
+  const pants =req.body.pants??"off"
+const pro=new Product({
+  name:req.body.name,
+  description:req.body.description,
+  price:req.body.price,
+  discount:req.body.discount,
+  type:{
+    men:men,
+    women:women,
+    top:top,
+    pants:pants
+}
+})
+pro.save()
+res.redirect("/admin")
+})
+app.post("/do",(req,res)=>{
+  console.log(req.body)
+  console.log(req.user.id)
+})
 
 
 connectDB().then(() => {
