@@ -154,21 +154,37 @@ app.post("/login",(req,res)=>{
         if (err) {
           return next(err);
         }else{
-        return res.redirect('/offers');
+          if(req.isAuthenticated){
+            if(req.user.type=="admin"){
+              res.sendFile(__dirname+"/admin/crud.html")
+            }else{
+              return res.redirect('/products');
+            }
+          }else{  
+            res.sendFile(__dirname+"/login.html")
+        }
       }  });
     }
     })(req, res);
 }) 
 app.post("/add",(req,res)=>{
+  console.log(req.body)
   const men =req.body.men ?? "off"
   const women =req.body.women??"off"
   const top =req.body.top??"off"
   const pants =req.body.pants??"off"
+  var dis =req.body.discount
+  if(dis==""){
+   dis=0
+    console.log(dis)
+  }else{
+    dis=dis
+  }
 const pro=new Product({
   name:req.body.name,
   description:req.body.description,
   price:req.body.price,
-  discount:req.body.discount,
+  discount:dis,
   type:{
     men:men,
     women:women,

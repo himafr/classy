@@ -42,10 +42,10 @@
   </head>
   <body>
     <div class="parent">
-      <nav class="nav">
+      <nav class="nav " >
         <img src="/photo/logo.png" style="height: 100%" alt="" />
-        <header>
-          <nav class="navbar">
+        <header >
+          <nav class="navbar ">
             <a href="#" class="logo">
               <img src="" alt="" />
             </a>
@@ -57,8 +57,8 @@
                 </button>
               </form>
             </div>
-            <ul class="links">
-              <span class="close-btn material-symbols-rounded">close</span>
+            <ul class="links ">
+              <span class="close-btn material-symbols-rounded form-popup">close</span>
               <li><a href="/">Home</a></li>
               <li><a href="products">Products</a></li>
               <li><a href="offers">Offers</a></li>
@@ -68,7 +68,7 @@
                 <a href="logout" class="login-btn">Log out</a>
               </li>
             </ul>
-            <span class="hamburger-btn material-symbols-rounded">menu</span>
+            <span id="menu" class="hamburger-btn material-symbols-rounded">menu</span>
           </nav>
         </header>
       </nav>
@@ -86,38 +86,38 @@
           <div>
             <ul class="nav-list">
               <li>
-                <a href="#">
+                <a id="men">
                   <i class="bx bx-user"></i>
                   <span class="asideLinks">Men</span>
                 </a>
               </li>
               <li>
-                <a href="#">
+                <a id="women">
                   <i class="bx bx-female"></i>
                   <span class="asideLinks">Women</span>
                 </a>
               </li>
 
               <li>
-                <a href="#">
+                <a id="top">
                   <i class="bx bxs-t-shirt"></i>
                   <span class="asideLinks">top</span>
                 </a>
               </li>
               <li>
-                <a href="#">
+                <a id="bottom">
                   <i class="bx bx-folder"></i>
-                  <span class="asideLinks">bottom</span>
+                  <span class="asideLinks">pants</span>
                 </a>
               </li>
               <li>
-                <a href="#">
+                <a id="shoe">
                   <i class="bx bx-cart-alt"></i>
                   <span class="asideLinks">shoese</span>
                 </a>
               </li>
               <li>
-                <a href="#">
+                <a id="saved">
                   <i class="bx bx-heart"></i>
                   <span class="asideLinks">Saved</span>
                 </a>
@@ -134,6 +134,7 @@
 
         <article id="add-card" class="add-card article">
           <% cards.forEach(element => {%>
+          <% if(element.discount ===0) {}else{%>
             <div class="card">
                        <div class="card-img"></div>
                        <div class="card-info">
@@ -155,6 +156,7 @@
                          </div>
                         <span class="text-title"><%= element.discount %>$</span>
                      </div>
+          <% }; %>
           <% }); %>
         </article>
       </section>
@@ -163,12 +165,7 @@
         <b> &copy; hima sallem </b>
       </footer>
     </div>
-
-    <script>
-            function p(a) {
-              console.log(a);
-            }
-    </script>
-    <script src="/js/nav-script.js"></script>
+    <script src="js/nav-script.js"></script>
+    <script src="js/offers.js"></script>
   </body>
 </html>
