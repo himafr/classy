@@ -67,29 +67,74 @@ app.get("/about",(req,res)=>{
 
 })
   
-
 app.get("/products",(req,res)=>{
+  res.redirect("/products/all")
+})
+app.get("/products/:tit",(req,res)=>{
   if(req.isAuthenticated()){
-    Product.find({}).then((found)=>{
-      res.render("products",{cards:found})
-    }
-    ) 
-}else{
-    res.redirect("login")
-}    
-})
-
-app.get("/offers",(req,res)=>{
-    if(req.isAuthenticated()){
-      Product.find({}).then((found)=>{
+    const tit =req.params.tit;
+    if(tit=="all"){
+      Product.find({discount:"0"}).then((found)=>{
+        res.render("products",{cards:found})
+      })}
+      else if(tit=="men"){
+        Product.find({"type.men":"on",discount:0}).then((found)=>{
+          res.render("products",{cards:found})
+      })}
+      else if(tit=="women"){
+      Product.find({"type.women":"on",discount:0}).then((found)=>{
+        res.render("products",{cards:found})
+      })}
+      else if(tit=="top"){
+        Product.find({"type.top":"on",discount:0}).then((found)=>{
+          res.render("products",{cards:found})
+        })}
+        else if(tit=="pants"){
+          Product.find({"type.pants":"on",discount:0}).then((found)=>{
+            console.log(found);
+            res.render("products",{cards:found})
+          })}
+          else {
+            res.send("<h1>not found </h1>")
+          }}else{
+            res.redirect("/login")
+          }})
+          
+          app.get("/offers",(req,res)=>{
+            res.redirect("/offers/all")
+          })
+          app.get("/offers/:tit",(req,res)=>{
+            if(req.isAuthenticated()){
+      const tit =req.params.tit;
+      if(tit=="all"){
+      Product.find({discount:{$gt:0}}).then((found)=>{
         res.render("offers",{cards:found})
+      })}
+    else if(tit=="men"){
+      Product.find({"type.men":"on",discount:{$gt:0}}).then((found)=>{
+        res.render("offers",{cards:found})
+      })}
+    else if(tit=="women"){
+      Product.find({"type.women":"on",discount:{$gt:0}}).then((found)=>{
+        res.render("offers",{cards:found})
+      })}
+    else if(tit=="top"){
+      Product.find({"type.top":"on",discount:{$gt:0}}).then((found)=>{
+        res.render("offers",{cards:found})
+      })}
+    else if(tit=="pants"){
+      Product.find({"type.pants":"on",discount:{$gt:0}}).then((found)=>{
+        console.log(found);
+        res.render("offers",{cards:found})
+      })
+      Product.find({}).then((found)=>{
+        res.render("offers",{cards:found})})   
       }
-      )   
-    }else{
-        res.redirect("login")
-    }
-
-})
+    else{
+      res.send("<h1>not found </h1>")
+    }}else {
+      res.redirect("/login")
+    }})
 app.get("/login",(req,res)=>{
     res.sendFile(__dirname+"/login.html")
   })
