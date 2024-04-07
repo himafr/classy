@@ -91,7 +91,10 @@ app.get("/products/:tit",(req,res)=>{
         })}
         else if(tit=="pants"){
           Product.find({"type.pants":"on",discount:0}).then((found)=>{
-            console.log(found);
+            res.render("products",{cards:found})
+          })}
+        else if(tit=="shoe"){
+          Product.find({"type.shoe":"on",discount:0}).then((found)=>{
             res.render("products",{cards:found})
           })}
           else {
@@ -123,18 +126,27 @@ app.get("/products/:tit",(req,res)=>{
         res.render("offers",{cards:found})
       })}
     else if(tit=="pants"){
-      Product.find({"type.pants":"on",discount:{$gt:0}}).then((found)=>{
-        console.log(found);
+        Product.find({"type.pants":"on",discount:{$gt:0}}).then((found)=>{
         res.render("offers",{cards:found})
-      })
-      Product.find({}).then((found)=>{
-        res.render("offers",{cards:found})})   
-      }
+      })}
+    else if(tit=="shoe"){
+      Product.find({"type.shoe":"on",discount:{$gt:0}}).then((found)=>{
+        res.render("offers",{cards:found})
+      })}
     else{
       res.send("<h1>not found </h1>")
     }}else {
       res.redirect("/login")
     }})
+    
+
+    app.post("/search",(req,res)=>{
+      const rsh =req.body.search
+      Product.find({"description":{$regex: rsh}}).then((found)=>{
+        res.render("search",{cards:found})
+      })
+    })
+
 app.get("/login",(req,res)=>{
     res.sendFile(__dirname+"/login.html")
   })
@@ -150,6 +162,16 @@ app.get("/login",(req,res)=>{
   }
 
 })
+
+app.get("/card/:one",(req,res)=>{
+  if(req.isAuthenticated()){
+    const one =req.params.one;
+      Product.findById(one).then((found)=>{
+        res.render("card",{cards:found})
+      })}else{
+        res.redirect("/login")
+      }})
+
 app.get("/logout",(req,res)=>{
   req.logout(req.user, err => {
     if(err) return next(err);
@@ -212,19 +234,18 @@ app.post("/login",(req,res)=>{
     }
     })(req, res);
 }) 
-app.post("/add",(req,res)=>{
-  console.log(req.body)
-  const men =req.body.men ?? "off"
-  const women =req.body.women??"off"
-  const top =req.body.top??"off"
-  const pants =req.body.pants??"off"
-  var dis =req.body.discount
-  if(dis==""){
-   dis=0
-    console.log(dis)
-  }else{
-    dis=dis
-  }
+
+      app.post("/add",(req,res)=>{
+      const men =req.body.men ?? "off"
+      const women =req.body.women??"off"
+      const top =req.body.top??"off"
+      const pants =req.body.pants??"off"
+      var dis =req.body.discount
+      if(dis==""){
+      dis=0
+      }else{
+      dis=dis
+    }
 const pro=new Product({
   name:req.body.name,
   description:req.body.description,

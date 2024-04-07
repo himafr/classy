@@ -3,17 +3,22 @@
         <%- include("partials/asideo") %>
         <article id="add-card" class="add-card article">
           <% cards.forEach(element => {%>
-          <% if(element.discount ===0) {}else{%>
             <div class="card">
-                       <div class="card-img" >
-                        <img class="imgcard" src="/photo/vertical-shot-grey-cat-with-blue-eyes-dark.jpg"/>
-                        </div>
+              <div class="card-img" >
+                <img class="imgcard" src="/photo/vertical-shot-grey-cat-with-blue-eyes-dark.jpg"/>
+                </div>
                        <div class="card-info">
                          <p class="text-title"><%= element.name %> </p>
                          <p class="text-body"><a href="/card/<%= element.id %>" class="link_remove"><b><%= element.description.substring(0,40) %>...</b></a></p>
-                         </div>
+                        </div>
                          <div class="card-footer">
-                           <span class="text-title"><small> <del> <%= element.price %>$</small></del></span>
+                           <span class="text-title">
+                            <% if(element.discount !=0){%>
+                            <small> <del> <%= element.price %>$</small></del>
+                        <% }else{%>
+                            <%= element.price %>$
+                        <%  } %>
+                        </span>
                           <form method="post" action="/do" name="<%= element.id %>">
                              <input type="hidden" value="<%= element.id %>" name="as">
                              <div class="card-button" onclick="document.forms['<%= element.id %>'].submit();">
@@ -24,11 +29,12 @@
                            </svg>
                          </div>
                </form>
-                         </div>
+            </div>
+            <% if(element.discount !=0){%>           
                         <span class="text-title"><%= element.discount %>$</span>
+                        <% } %>
                      </div>
-          <% }; %>
-          <% }); %>
+      <%  }); %>
         </article>
       </section>
 <%- include("partials/footer") %>

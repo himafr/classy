@@ -4,11 +4,19 @@
         <article id="add-card" class="add-card article">
           <% cards.forEach(element => {%>
           <div class="card">
-            <div class="card-img"></div>
+            <div class="card-img" >
+              <img class="imgcard" src="/photo/vertical-shot-grey-cat-with-blue-eyes-dark.jpg"/>
+              </div>
             <div class="card-info">
               <p class="text-title"><%= element.name %></p>
-              <p class="text-body"><%= element.description %></p>
-            </div>
+              <p class="text-body"><a href="/card/<%= element.id %>" class="link_remove"><b>
+                <% if(element.description==null){%>
+                </p>
+                <%}else{ %>
+                  <%= element.description.substring(0,40) %>...</p>
+                  <% } %>
+                </b></a></p>
+              </div>
             <div class="card-footer">
               <span class="text-title"> <%= element.price %>$</span>
               <form method="post" action="/do" name="<%= element.id %>">

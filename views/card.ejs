@@ -1,0 +1,31 @@
+<style>
+.mainsection{
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.text-title{
+    display: block;
+}
+</style>
+<section class="mainSection">
+                        <img style="height: 80vh;" src="/photo/vertical-shot-grey-cat-with-blue-eyes-dark.jpg"/>
+                        <div class="tials">
+                            <h1 class="text-title"><%= cards.name %> </h1>
+                            <p class="text-body"><b><%= cards.description %></b></p>
+                            <% if(cards.discount !=0){%>
+                                <small> <del> <%= cards.price %>$</small></del>
+                                <span class="text-title"><%= cards.discount %>$</span>
+                            <% }else{%>
+                                <%= cards.price %>$
+                            <%  } %>
+                            <form method="post" action="/do" name="<%= cards.id %>">
+                                <input type="hidden" value="<%= cards.id %>" name="as">
+                                <button type="submit"> Buy</button>
+                                </form>
+                            </div>
+                       
+                  
+        </article>
+      </section>
+<%- include("partials/footer") %>

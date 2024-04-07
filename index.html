@@ -1823,17 +1823,17 @@
                   <span class="mbr-iconfont socicon socicon-facebook"></span>
                 </a>
               </div>
-              <div class="soc-item">
+              <!-- <div class="soc-item">
                 <a href="#" target="_blank">
                   <span class="mbr-iconfont socicon-twitter socicon"></span>
                 </a>
-              </div>
+              </div> -->
               <div class="soc-item">
-                <a href="#" target="_blank">
+                <a href="https://www.instagram.com/hima_sallem23?igsh=Y3BtNDRqc3J4dm40" target="_blank">
                   <span class="mbr-iconfont socicon-instagram socicon"></span>
                 </a>
               </div>
-              <div class="soc-item">
+              <!-- <div class="soc-item">
                 <a href="#" target="_blank">
                   <span class="mbr-iconfont socicon socicon-linkedin"></span>
                 </a>
@@ -1842,7 +1842,7 @@
                 <a href="#" target="_blank">
                   <span class="mbr-iconfont socicon socicon-twitch"></span>
                 </a>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
@@ -1864,8 +1864,8 @@
       <div class="container">
         <div class="media-container-row align-center mbr-white">
           <div class="col-12">
-            <p class="mbr-text mb-0 mbr-fonts-style display-7">
-              © 2024 h.sallem . All Rights Reserved
+            <p class="mbr-text mb-0 mbr-fonts-style display-7" style="display: inline;">
+              © <div id="year" style="display: inline;"></div> h.sallem . All Rights Reserved
             </p>
           </div>
         </div>
@@ -1885,12 +1885,15 @@
     <script src="assets/formoid/formoid.min.js"></script>
 
     <script>
-      (function () {
-        var animationInput = document.createElement("input");
-        animationInput.setAttribute("name", "animation");
-        animationInput.setAttribute("type", "hidden");
-        document.body.append(animationInput);
-      })();
+      // (function () {
+      //   var animationInput = document.createElement("input");
+      //   animationInput.setAttribute("name", "animation");
+      //   animationInput.setAttribute("type", "hidden");
+      //   document.body.append(animationInput);
+      // })();
+      var date = new Date().getFullYear();
+      document.getElementById("year").innerHTML =date
+
     </script>
   </body>
 </html>
