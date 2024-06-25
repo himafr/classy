@@ -29,7 +29,7 @@ cookie: { path: '/', httpOnly: true, maxAge:36000000},
       process.exit();
     }
   }
-  const userchema= new mongoose.Schema({
+  const userSchema= new mongoose.Schema({
     name:String,
     address:String,
     year:Number,
@@ -38,9 +38,9 @@ cookie: { path: '/', httpOnly: true, maxAge:36000000},
     type:String,
     password:String,
   })
-userchema.plugin(passportLocalMongoose);
+userSchema.plugin(passportLocalMongoose);
 
-const User = new mongoose.model("User",userchema)
+const User = new mongoose.model("User",userSchema)
   passport.use(User.createStrategy());
 
 passport.serializeUser(User.serializeUser());
