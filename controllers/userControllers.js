@@ -1,5 +1,23 @@
 const passport =require("passport")
 const User= require('../models/userModel')
+
+exports.admin=(req,res,next)=>{
+  next();
+  // if(req.user.type){
+  // }else{
+  //     res.send("not an admin")
+  // }
+  }
+  
+exports.auth=(req,res,next)=>{
+  next();
+//   if (req.isAuthenticated()) {
+//   }
+// else {
+// res.redirect("/login");
+// }
+}
+
 exports.logout=async(req,res)=>{
     req.logout(req.user, err => {
       if(err) return next(err);

@@ -35,7 +35,7 @@ const userSchema= new mongoose.Schema({
   })
 userSchema.plugin(passportLocalMongoose);
 
-const User = new mongoose.model("User",userSchema)
+const User = mongoose.model("User",userSchema)
   passport.use(User.createStrategy());
 
 passport.serializeUser(User.serializeUser());

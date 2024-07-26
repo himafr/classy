@@ -2,11 +2,16 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json())
 const ejs = require("ejs");
 const session = require("express-session");
 const passport = require("passport");
 const userRoute = require("./router/userRoute");
 const productRoute=require('./router/productRoute')
+const offersRoute=require('./router/offersRoute')
+// const offersRoute=require('./router/adminRoute')
+// const offersRoute=require('./router/aboutRoute')
+const userControllers=require('./controllers/userControllers')
 //middlewares
 
 app.use(express.static("public"));
@@ -21,22 +26,26 @@ app.use(
     resave: false,
     saveUninitialized: false,
   })
-);
-app.use(passport.initialize());
-app.use(passport.session());
+  );
+  app.use(passport.initialize());
+  app.use(passport.session());
+  app.get("/", (req, res) => {
+    res.sendFile(__dirname + "/index.html");
+  });
+  
+  app.get("/login", (req, res) => {
+    res.sendFile(__dirname + "/login.html");
+  });
 
-app.use("/users", userRoute);
 app.use("/products",productRoute )
-app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/index.html");
-});
+app.use("/users", userRoute);
+app.use(userControllers.auth)
+app.use('/offers',offersRoute)
+// app.use('/about',aboutRoute)
+// app.use('/admin',adminRoute)
 
 app.get("/about", (req, res) => {
   res.sendFile(__dirname + "/about.html");
-});
-
-app.get("/login", (req, res) => {
-  res.sendFile(__dirname + "/login.html");
 });
 app.get("/admin", (req, res) => {
   if (req.isAuthenticated) {
@@ -47,17 +56,6 @@ app.get("/admin", (req, res) => {
     }
   } else {
     res.sendFile(__dirname + "/login.html");
-  }
-});
-
-app.get("/card/:one", (req, res) => {
-  if (req.isAuthenticated()) {
-    const one = req.params.one;
-    Product.findById(one).then((found) => {
-      res.render("card", { cards: found });
-    });
-  } else {
-    res.redirect("/login");
   }
 });
 

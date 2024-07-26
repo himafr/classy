@@ -1,6 +1,6 @@
 const mongoose =require("mongoose")
 
-const Product =new mongoose.model("Product",{
+const Product = mongoose.model("Product",{
   name:{
     type:String,
     required:true,
@@ -10,7 +10,6 @@ const Product =new mongoose.model("Product",{
   },
   description:{
     type:String,
-    required:true,
     trim:true,
     minlength:10,
     maxlength:500,
@@ -29,10 +28,9 @@ const Product =new mongoose.model("Product",{
     max:100,
   },
   type:{
-    type:String,
+    type:Object,
     enum:["Men","Women","Top","Pants"],
-    default:["Men"],
-    required:true,
+    default:{Men:"on"},
   }
 })
 module.exports=Product
