@@ -21,7 +21,7 @@
           <div class="slider-tab"></div>
         </div>
         <div class="form-inner">
-          <form action="login" method="post" class="login">
+          <form action="/users/log" method="post" class="login">
             <div class="field">
               <input
                 type="text"
@@ -47,7 +47,7 @@
               Don't have account? <a href="#">Signup now</a>
             </div>
           </form>
-          <form action="signup" method="post" class="signup">
+          <form action="/users" method="post" class="signup">
             <div class="field edit">
               <input
                 type="text"
@@ -65,10 +65,14 @@
               />
             </div>
             <div class="field edit">
-              <input type="text" placeholder="name" name="firstName" required />
+              <input type="text" placeholder="name" name="name" required />
             </div>
             <div class="field edit">
-              <input type="text" placeholder="Address(optional)" name="address"  />
+              <input
+                type="text"
+                placeholder="Address(optional)"
+                name="address"
+              />
             </div>
             <div class="field editt">
               <input type="number" placeholder="Day" name="day" required />
