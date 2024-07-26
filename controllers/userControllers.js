@@ -18,6 +18,7 @@ exports.auth=(req,res,next)=>{
 // }
 }
 
+
 exports.logout=async(req,res)=>{
     req.logout(req.user, err => {
       if(err) return next(err);
