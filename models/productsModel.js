@@ -25,12 +25,11 @@ const Product = mongoose.model("Product",{
     type:Number,
     default:0,
     min:0,
-    max:100,
   },
   type:{
-    type:Object,
-    enum:["Men","Women","Top","Pants"],
-    default:{Men:"on"},
+    type:String,
+    enum:["men","women","top","pants","shoe"],
+    default:'men'
   }
 })
 module.exports=Product

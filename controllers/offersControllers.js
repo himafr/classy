@@ -2,9 +2,22 @@ const Product=require('../models/productsModel')
 
 //get all offers
 exports.getAllOffers = async (req, res) => {
-  Product.find({ discount: { $gt: 0 } }).then((found) => {
-    res.render("offers", { cards: found });
-  });
+  try{
+    const queryObj={...req.query,  discount: { gt: 0 }  }
+    const excludedQuery=['sort']
+    excludedQuery.forEach(match=> delete queryObj[match])
+    let queryStr=JSON.stringify(queryObj)
+    queryStr=queryStr.replace(/\b(gt|lt|gte|lte)\b/g,match => `$${match}`)
+    console.log(JSON.parse(queryStr))
+    const query=Product.find(JSON.parse(queryStr))
+    const products=await query
+      res.render("offers", { cards: products });
+  }catch(err){
+    res.status(500).json({
+      status: "fail",
+      message: "Server Error",
+    });
+  }
 };
 
 //get single offer

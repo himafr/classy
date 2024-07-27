@@ -1,11 +1,24 @@
 const Product = require("../models/productsModel");
 
 //get all products
-exports.getAllProducts = (req, res) => {
-  Product.find({ discount: "0" }).then((found) => {
-    res.render("products", { cards: found });
-  });
-};
+exports.getAllProducts =async (req, res) => {
+  try{
+    const queryObj={...req.query, discount: "0" }
+    const excludedQuery=['sort']
+    excludedQuery.forEach(match=> delete queryObj[match])
+    let queryStr=JSON.stringify(queryObj)
+    queryStr=queryStr.replace(/\b(gt|lt|gte|lte)\b/g,match => `$${match}`)
+    console.log(JSON.parse(queryStr))
+    const query=Product.find(JSON.parse(queryStr))
+    const products=await query
+      res.render("products", { cards: products });
+  }catch(err){
+    res.status(500).json({
+      status: "fail",
+      message: "Server Error",
+    });
+  }
+  };
 
 //add new product
 exports.addProduct = async (req, res) => {

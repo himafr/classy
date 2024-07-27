@@ -14,7 +14,7 @@ const offersRoute=require('./router/offersRoute')
 const userControllers=require('./controllers/userControllers')
 const morgan=require('morgan')
 //middlewares
-app.use(morgan())
+app.use(morgan('dev'))
 app.use(express.static("public"));
 app.set("view engine", "ejs");
 

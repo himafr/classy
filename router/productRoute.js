@@ -15,10 +15,3 @@ router
   .delete(userControllers.admin,productControllers.deleteProduct)
 
 module.exports=router
-    //   app.post("/search",(req,res)=>{
-    //     const rsh =req.body.search
-    //     Product.find({"description":{$regex: rsh}}).then((found)=>{
-    //       res.render("search",{cards:found})
-    //     })
-    //   })
-  
