@@ -22,5 +22,30 @@
     <link rel="stylesheet" href="" />
     <link rel="stylesheet" href="css/bootstrap.css" />
   </head>
-  <body></body>
+  <body>
+    <div id="user_update" >
+      <input type="text" id="address" placeholder="address">
+      <button onclick="update_user()"> yalla </button>
+    </div>
+<script>
+  let id="<%- users %>"
+  function update_user(){
+    let address = document.getElementById("address").value;
+    let bd=JSON.stringify({ address:address })
+    fetch(`/users/${id}`,
+    {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: bd
+    })
+  }    
+  // document.getElementById("user_update").addEventListener("click",
+  // (event)=>{
+  // event.preventDefault()    
+  // })
+
+</script>
+  </body>
 </html>

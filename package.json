@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": { "start": "nodemon server.js" }
-  ,
+  "scripts": {
+    "start": "nodemon server.js"
+  },
   "author": "hima",
   "license": "ISC",
   "dependencies": {
@@ -15,6 +16,7 @@
     "express-session": "^1.18.0",
     "mongodb": "^6.5.0",
     "mongoose": "^8.2.4",
+    "morgan": "^1.10.0",
     "nodemon": "^3.1.0",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",

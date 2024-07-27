@@ -1,13 +1,16 @@
 const Product = require("../models/productsModel");
 
+//get all products
 exports.getAllProducts = (req, res) => {
   Product.find({ discount: "0" }).then((found) => {
     res.render("products", { cards: found });
   });
 };
+
+//add new product
 exports.addProduct = async (req, res) => {
   try {
-    console.log(req.body)
+    console.log(req.body);
     const newProduct = await Product.create(req.body);
     res.json({
       status: "success",
@@ -15,7 +18,6 @@ exports.addProduct = async (req, res) => {
         product: newProduct,
       },
     });
-
   } catch (err) {
     res.status(400).json({
       status: "fail",
@@ -23,6 +25,8 @@ exports.addProduct = async (req, res) => {
     });
   }
 };
+
+//get single product
 exports.getProduct = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
@@ -34,6 +38,8 @@ exports.getProduct = async (req, res) => {
     });
   }
 };
+
+//update product
 exports.editProduct = async (req, res) => {
   try {
     const product = await Product.findByIdAndUpdate(req.params.id, req.body, {
@@ -52,6 +58,8 @@ exports.editProduct = async (req, res) => {
     });
   }
 };
+
+//delete product
 exports.deleteProduct = async (req, res) => {
   try {
     await Product.findByIdAndDelete(req.params.id);

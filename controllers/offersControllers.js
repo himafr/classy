@@ -1,10 +1,13 @@
 const Product=require('../models/productsModel')
+
+//get all offers
 exports.getAllOffers = async (req, res) => {
   Product.find({ discount: { $gt: 0 } }).then((found) => {
     res.render("offers", { cards: found });
   });
 };
 
+//get single offer
 exports.getOffers = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
@@ -17,7 +20,9 @@ exports.getOffers = async (req, res) => {
     });
   }
 };
-exports.editOffers = async (req, res) => {
+
+//update an offer
+exports.updateOffers = async (req, res) => {
   try {
     const product = await Product.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
@@ -35,6 +40,8 @@ exports.editOffers = async (req, res) => {
     });
   }
 };
+
+//delete an offer
 exports.deleteOffers = async (req, res) => {
   try {
     const product=await Product.findByIdAndUpdate(req.params.id,{discount:0},{

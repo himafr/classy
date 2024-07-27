@@ -12,8 +12,9 @@ const offersRoute=require('./router/offersRoute')
 // const offersRoute=require('./router/adminRoute')
 // const offersRoute=require('./router/aboutRoute')
 const userControllers=require('./controllers/userControllers')
+const morgan=require('morgan')
 //middlewares
-
+app.use(morgan())
 app.use(express.static("public"));
 app.set("view engine", "ejs");
 
@@ -29,6 +30,10 @@ app.use(
   );
   app.use(passport.initialize());
   app.use(passport.session());
+
+  app.get("/yalla",(req,res)=>{
+    res.render('logo',{users:req.user.id})
+  })
   app.get("/", (req, res) => {
     res.sendFile(__dirname + "/index.html");
   });
